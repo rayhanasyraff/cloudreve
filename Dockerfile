@@ -84,6 +84,4 @@ RUN chmod +x ./cloudreve \
 
 EXPOSE 5212 443 6888 6888/udp
 
-VOLUME ["/cloudreve/data"]
-
 ENTRYPOINT ["sh", "./entrypoint.sh"]
