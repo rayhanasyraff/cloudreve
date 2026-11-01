@@ -23,8 +23,15 @@ RUN npm install --global yarn@1.22.22
 COPY go.mod go.sum ./
 RUN go mod download
 
-# Copy source code, including assets submodule
+# Copy Cloudreve source
 COPY . .
+
+# Fetch the exact frontend commit used by this Cloudreve version
+RUN rm -rf assets \
+    && git init assets \
+    && git -C assets remote add origin https://github.com/cloudreve/frontend.git \
+    && git -C assets fetch --depth 1 origin 19da0fe1ecd40971fafa813983d769fdce41573c \
+    && git -C assets checkout FETCH_HEAD
 
 # Build frontend and backend
 RUN set -eux; \
